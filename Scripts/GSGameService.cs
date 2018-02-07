@@ -2,9 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using GameSparks.Core;
+using GameSparks.Api.Requests;
 
 public partial class GSGameService : BaseGameService
 {
+    private void Awake()
+    {
+        StartCoroutine(WaitForGS());
+    }
+
+
+    IEnumerator WaitForGS()
+    {
+        while (!GS.Available)
+            yield return 0;
+
+        Debug.Log("Gamesparks ready.");
+    }
+
     protected override void DoGetAuthList(string playerId, string loginToken, UnityAction<AuthListResult> onFinish)
     {
         var result = new AuthListResult();
