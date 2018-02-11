@@ -48,6 +48,9 @@ public partial class GSGameService : BaseGameService
         var formationsJson = "";
         var stagesJson = "";
         var lootBoxesJson = "";
+        var startItemsJson = "";
+        var startCharactersJson = "";
+        var unlockStagesJson = "";
 
         foreach (var item in gameDatabase.Items)
         {
@@ -57,29 +60,16 @@ public partial class GSGameService : BaseGameService
         }
         itemsJson = "{" + itemsJson + "}";
 
-        foreach (var entry in gameDatabase.Currencies)
-        {
-            if (!string.IsNullOrEmpty(currenciesJson))
-                currenciesJson += ",";
-            currenciesJson += "\"" + entry.Key + "\":" + entry.Value.ToJson();
-        }
-        currenciesJson = "{" + currenciesJson + "}";
-
-        foreach (var entry in gameDatabase.Staminas)
-        {
-            if (!string.IsNullOrEmpty(staminasJson))
-                staminasJson += ",";
-            staminasJson += "\"" + entry.Key + "\":" + entry.Value.ToJson();
-        }
-        staminasJson = "{" + staminasJson + "}";
+        currenciesJson = "{\"SOFT_CURRENCY\":\"" + gameDatabase.softCurrency.id + "\", \"HARD_CURRENCY\":\"" + gameDatabase.hardCurrency.id + "\"}";
+        staminasJson = "{\"STAGE\":" + gameDatabase.stageStamina.ToJson() + "}";
 
         foreach (var entry in gameDatabase.Formations)
         {
             if (!string.IsNullOrEmpty(formationsJson))
                 formationsJson += ",";
-            formationsJson += "\"" + entry.Key + "\":" + entry.Value.ToJson();
+            formationsJson += "\"" + entry.Key + "\"";
         }
-        formationsJson = "{" + formationsJson + "}";
+        formationsJson = "[" + formationsJson + "]";
 
         foreach (var entry in gameDatabase.Stages)
         {
@@ -97,15 +87,52 @@ public partial class GSGameService : BaseGameService
         }
         lootBoxesJson = "{" + lootBoxesJson + "}";
 
+        foreach (var entry in gameDatabase.startItems)
+        {
+            if (entry == null || entry.item == null)
+                continue;
+            if (!string.IsNullOrEmpty(startItemsJson))
+                startItemsJson += ",";
+            startItemsJson += entry.ToJson();
+        }
+        startItemsJson = "[" + startItemsJson + "]";
+
+        foreach (var entry in gameDatabase.startCharacters)
+        {
+            if (entry == null)
+                continue;
+            if (!string.IsNullOrEmpty(startCharactersJson))
+                startCharactersJson += ",";
+            startCharactersJson += "\"" + entry.Id + "\"";
+        }
+        startCharactersJson = "[" + startCharactersJson + "]";
+
+        foreach (var entry in gameDatabase.unlockStages)
+        {
+            if (entry == null)
+                continue;
+            if (!string.IsNullOrEmpty(unlockStagesJson))
+                unlockStagesJson += ",";
+            unlockStagesJson += "\"" + entry.Id + "\"";
+        }
+        unlockStagesJson = "[" + unlockStagesJson + "]";
+
         var jsonCombined = "{\"items\":" + itemsJson + "," +
             "\"currencies\":" + currenciesJson + "," +
             "\"staminas\":" + staminasJson + "," +
             "\"formations\":" + formationsJson + "," +
             "\"stages\":" + stagesJson + "," +
-            "\"lootBoxes\":" + lootBoxesJson + "}";
+            "\"lootBoxes\":" + lootBoxesJson + "," +
+            "\"startItems\":" + startItemsJson + "," +
+            "\"startCharacters\":" + startCharactersJson + "," +
+            "\"unlockStages\":" + unlockStagesJson + "," +
+            "\"playerMaxLevel\":" + gameDatabase.playerMaxLevel + "," +
+            "\"playerExpTable\":" + gameDatabase.playerExpTable.ToJson() + "," +
+            "\"revivePrice\":" + gameDatabase.revivePrice + "," +
+            "\"resetItemLevelAfterEvolve\":" + (gameDatabase.resetItemLevelAfterEvolve ? 1 : 0) + "}";
 
         var cloudCodes = "var gameDatabase = " + jsonCombined + ";";
-        var path = EditorUtility.SaveFilePanel("Export Game Database", Application.dataPath, "GameDatabase", "json");
+        var path = EditorUtility.SaveFilePanel("Export Game Database", Application.dataPath, "GAME_DATA", "js");
         if (path.Length > 0)
             File.WriteAllText(path, cloudCodes);
     }
