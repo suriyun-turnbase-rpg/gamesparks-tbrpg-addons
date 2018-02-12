@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using GameSparks.Core;
 using GameSparks.Api.Requests;
-using LitJson;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -139,10 +138,10 @@ public partial class GSGameService : BaseGameService
     }
 #endif
 
-    protected LogEventRequest GetGSEventRequest(string target, List<GSData> data = null)
+    protected LogEventRequest GetGSEventRequest(string target, GSRequestData data = null)
     {
         if (data == null)
-            data = new List<GSData>();
+            data = new GSRequestData();
         var request = new LogEventRequest();
         request.SetEventKey("SERVICE_EVENT");
         request.SetEventAttribute("TARGET", target);
@@ -169,7 +168,7 @@ public partial class GSGameService : BaseGameService
                 foreach (var entry in list)
                 {
                     var resultEntry = new PlayerItem();
-                    PlayerItem.CloneTo(JsonMapper.ToObject<DbPlayerItem>(entry.JSON), resultEntry);
+                    PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
                     result.list.Add(resultEntry);
                 }
                 onFinish(result);
@@ -190,7 +189,7 @@ public partial class GSGameService : BaseGameService
                 foreach (var entry in list)
                 {
                     var resultEntry = new PlayerCurrency();
-                    PlayerCurrency.CloneTo(JsonMapper.ToObject<DbPlayerCurrency>(entry.JSON), resultEntry);
+                    PlayerCurrency.CloneTo(JsonUtility.FromJson<DbPlayerCurrency>(entry.JSON), resultEntry);
                     result.list.Add(resultEntry);
                 }
                 onFinish(result);
@@ -211,7 +210,7 @@ public partial class GSGameService : BaseGameService
                 foreach (var entry in list)
                 {
                     var resultEntry = new PlayerStamina();
-                    PlayerStamina.CloneTo(JsonMapper.ToObject<DbPlayerStamina>(entry.JSON), resultEntry);
+                    PlayerStamina.CloneTo(JsonUtility.FromJson<DbPlayerStamina>(entry.JSON), resultEntry);
                     result.list.Add(resultEntry);
                 }
                 onFinish(result);
@@ -232,7 +231,7 @@ public partial class GSGameService : BaseGameService
                 foreach (var entry in list)
                 {
                     var resultEntry = new PlayerFormation();
-                    PlayerFormation.CloneTo(JsonMapper.ToObject<DbPlayerFormation>(entry.JSON), resultEntry);
+                    PlayerFormation.CloneTo(JsonUtility.FromJson<DbPlayerFormation>(entry.JSON), resultEntry);
                     result.list.Add(resultEntry);
                 }
                 onFinish(result);
@@ -253,7 +252,7 @@ public partial class GSGameService : BaseGameService
                 foreach (var entry in list)
                 {
                     var resultEntry = new PlayerUnlockItem();
-                    PlayerUnlockItem.CloneTo(JsonMapper.ToObject<DbPlayerUnlockItem>(entry.JSON), resultEntry);
+                    PlayerUnlockItem.CloneTo(JsonUtility.FromJson<DbPlayerUnlockItem>(entry.JSON), resultEntry);
                     result.list.Add(resultEntry);
                 }
                 onFinish(result);
@@ -274,7 +273,7 @@ public partial class GSGameService : BaseGameService
                 foreach (var entry in list)
                 {
                     var resultEntry = new PlayerClearStage();
-                    PlayerClearStage.CloneTo(JsonMapper.ToObject<DbPlayerClearStage>(entry.JSON), resultEntry);
+                    PlayerClearStage.CloneTo(JsonUtility.FromJson<DbPlayerClearStage>(entry.JSON), resultEntry);
                     result.list.Add(resultEntry);
                 }
                 onFinish(result);
