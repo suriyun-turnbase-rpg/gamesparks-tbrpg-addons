@@ -19,6 +19,8 @@ public partial class GSGameService
                 {
                     if (accountResponse.ScriptData.ContainsKey("exp"))
                         player.Exp = accountResponse.ScriptData.GetInt("exp").Value;
+                    if (accountResponse.ScriptData.ContainsKey("selectedFormation"))
+                        player.SelectedFormation = accountResponse.ScriptData.GetString("selectedFormation");
                 }
                 result.player = player;
                 onFinish(result);
