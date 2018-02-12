@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using GameSparks.Core;
 using GameSparks.Api.Requests;
+using LitJson;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -138,6 +139,17 @@ public partial class GSGameService : BaseGameService
     }
 #endif
 
+    protected LogEventRequest GetGSEventRequest(string target, List<GSData> data = null)
+    {
+        if (data == null)
+            data = new List<GSData>();
+        var request = new LogEventRequest();
+        request.SetEventKey("SERVICE_EVENT");
+        request.SetEventAttribute("TARGET", target);
+        request.SetEventAttribute("DATA", data);
+        return request;
+    }
+
     protected override void DoGetAuthList(string playerId, string loginToken, UnityAction<AuthListResult> onFinish)
     {
         var result = new AuthListResult();
@@ -147,36 +159,126 @@ public partial class GSGameService : BaseGameService
     protected override void DoGetItemList(string playerId, string loginToken, UnityAction<ItemListResult> onFinish)
     {
         var result = new ItemListResult();
-        onFinish(result);
+        var request = GetGSEventRequest("GetItemList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    var resultEntry = new PlayerItem();
+                    PlayerItem.CloneTo(JsonMapper.ToObject<DbPlayerItem>(entry.JSON), resultEntry);
+                    result.list.Add(resultEntry);
+                }
+                onFinish(result);
+            }
+        });
     }
 
     protected override void DoGetCurrencyList(string playerId, string loginToken, UnityAction<CurrencyListResult> onFinish)
     {
         var result = new CurrencyListResult();
-        onFinish(result);
+        var request = GetGSEventRequest("GetCurrencyList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    var resultEntry = new PlayerCurrency();
+                    PlayerCurrency.CloneTo(JsonMapper.ToObject<DbPlayerCurrency>(entry.JSON), resultEntry);
+                    result.list.Add(resultEntry);
+                }
+                onFinish(result);
+            }
+        });
     }
 
     protected override void DoGetStaminaList(string playerId, string loginToken, UnityAction<StaminaListResult> onFinish)
     {
         var result = new StaminaListResult();
-        onFinish(result);
+        var request = GetGSEventRequest("GetStaminaList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    var resultEntry = new PlayerStamina();
+                    PlayerStamina.CloneTo(JsonMapper.ToObject<DbPlayerStamina>(entry.JSON), resultEntry);
+                    result.list.Add(resultEntry);
+                }
+                onFinish(result);
+            }
+        });
     }
 
     protected override void DoGetFormationList(string playerId, string loginToken, UnityAction<FormationListResult> onFinish)
     {
         var result = new FormationListResult();
-        onFinish(result);
+        var request = GetGSEventRequest("GetFormationList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    var resultEntry = new PlayerFormation();
+                    PlayerFormation.CloneTo(JsonMapper.ToObject<DbPlayerFormation>(entry.JSON), resultEntry);
+                    result.list.Add(resultEntry);
+                }
+                onFinish(result);
+            }
+        });
     }
 
     protected override void DoGetUnlockItemList(string playerId, string loginToken, UnityAction<UnlockItemListResult> onFinish)
     {
         var result = new UnlockItemListResult();
-        onFinish(result);
+        var request = GetGSEventRequest("GetUnlockItemList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    var resultEntry = new PlayerUnlockItem();
+                    PlayerUnlockItem.CloneTo(JsonMapper.ToObject<DbPlayerUnlockItem>(entry.JSON), resultEntry);
+                    result.list.Add(resultEntry);
+                }
+                onFinish(result);
+            }
+        });
     }
 
     protected override void DoGetClearStageList(string playerId, string loginToken, UnityAction<ClearStageListResult> onFinish)
     {
         var result = new ClearStageListResult();
-        onFinish(result);
+        var request = GetGSEventRequest("GetClearStageList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    var resultEntry = new PlayerClearStage();
+                    PlayerClearStage.CloneTo(JsonMapper.ToObject<DbPlayerClearStage>(entry.JSON), resultEntry);
+                    result.list.Add(resultEntry);
+                }
+                onFinish(result);
+            }
+        });
     }
 }
