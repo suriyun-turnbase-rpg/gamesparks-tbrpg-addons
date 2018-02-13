@@ -217,7 +217,17 @@ public partial class GSGameService
     protected override void DoGetAvailableLootBoxList(UnityAction<AvailableLootBoxListResult> onFinish)
     {
         var result = new AvailableLootBoxListResult();
-        onFinish(result);
+        var request = GetGSEventRequest("GetAvailableLootBoxList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetStringList("list");
+                result.list = list;
+                onFinish(result);
+            }
+        });
     }
 
     protected override void DoOpenLootBox(string playerId, string loginToken, string lootBoxDataId, int packIndex, UnityAction<ItemResult> onFinish)
