@@ -91,7 +91,6 @@ public partial class GSGameService
     protected override void DoValidateLoginToken(string playerId, string loginToken, bool refreshToken, UnityAction<PlayerResult> onFinish)
     {
         var result = new PlayerResult();
-        var player = result.player = new Player();
         result.error = GameServiceErrorCode.INVALID_PLAYER_DATA;
         onFinish(result);
     }

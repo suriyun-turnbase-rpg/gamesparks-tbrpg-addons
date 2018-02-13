@@ -150,7 +150,6 @@ public partial class GSGameService
     {
         var result = new ItemResult();
         var data = new GSRequestData();
-        var itemsObject = new GSRequestData();
         data.AddString("characterId", characterId);
         data.AddString("equipmentId", equipmentId);
         data.AddString("equipPosition", equipPosition);
@@ -185,7 +184,6 @@ public partial class GSGameService
     {
         var result = new ItemResult();
         var data = new GSRequestData();
-        var itemsObject = new GSRequestData();
         data.AddString("equipmentId", equipmentId);
         var request = GetGSEventRequest("UnEquipItem", data);
         request.Send((response) =>
