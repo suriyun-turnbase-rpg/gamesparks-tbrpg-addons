@@ -57,6 +57,7 @@ public partial class GSGameService
                 }
                 else
                 {
+                    var rewardItems = scriptData.GetGSDataList("rewardItems");
                     var createItems = scriptData.GetGSDataList("createItems");
                     var updateItems = scriptData.GetGSDataList("updateItems");
                     var deleteItemIds = scriptData.GetStringList("deleteItemIds");
@@ -68,6 +69,12 @@ public partial class GSGameService
                     var clearStage = scriptData.GetGSData("clearStage");
                     var player = scriptData.GetGSData("player");
 
+                    foreach (var entry in rewardItems)
+                    {
+                        var resultEntry = new PlayerItem();
+                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
+                        result.rewardItems.Add(resultEntry);
+                    }
                     foreach (var entry in createItems)
                     {
                         var resultEntry = new PlayerItem();
