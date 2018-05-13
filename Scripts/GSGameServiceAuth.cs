@@ -27,6 +27,7 @@ public partial class GSGameService
             }
             else
             {
+                Debug.LogError("GameSparks error while request accout details: " + accountResponse.Errors.JSON);
                 result.error = GameServiceErrorCode.UNKNOW;
                 onFinish(result);
             }
@@ -49,6 +50,7 @@ public partial class GSGameService
                 RequestAccountDetails(result, onFinish);
             else
             {
+                Debug.LogError("GameSparks error while login: " + authResponse.Errors.JSON);
                 result.error = GameServiceErrorCode.UNKNOW;
                 if (authResponse.Errors.ContainsKey("DETAILS") && authResponse.Errors.GetString("DETAILS").Equals("UNRECOGNISED"))
                     result.error = GameServiceErrorCode.EMPTY_USERNMAE_OR_PASSWORD;
@@ -82,6 +84,7 @@ public partial class GSGameService
                 RequestAccountDetails(result, onFinish);
             else
             {
+                Debug.LogError("GameSparks error while guest login: " + authResponse.Errors.JSON);
                 result.error = GameServiceErrorCode.UNKNOW;
                 onFinish(result);
             }
@@ -109,6 +112,7 @@ public partial class GSGameService
                 onFinish(result);
             else
             {
+                Debug.LogError("GameSparks error while set profile name: " + authResponse.Errors.JSON);
                 result.error = GameServiceErrorCode.UNKNOW;
                 onFinish(result);
             }
@@ -131,6 +135,7 @@ public partial class GSGameService
                 onFinish(result);
             else
             {
+                Debug.LogError("GameSparks error while register: " + authResponse.Errors.JSON);
                 result.error = GameServiceErrorCode.UNKNOW;
                 if (authResponse.Errors.ContainsKey("USERNAME") && authResponse.Errors.GetString("USERNAME").Equals("TAKEN"))
                     result.error = GameServiceErrorCode.EXISTED_USERNAME;
