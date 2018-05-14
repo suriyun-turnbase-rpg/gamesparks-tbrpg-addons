@@ -124,6 +124,7 @@ public partial class GSGameService
         var result = new PlayerResult();
         var player = result.player = new Player();
         var request = new RegistrationRequest();
+        request.SetDisplayName(" ");
         request.SetUserName(username);
         request.SetPassword(password);
         request.Send((authResponse) =>
