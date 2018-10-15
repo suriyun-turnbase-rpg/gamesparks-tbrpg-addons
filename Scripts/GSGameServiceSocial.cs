@@ -72,18 +72,9 @@ public partial class GSGameService
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
-            if (scriptData != null)
-            {
-                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
-                {
-                    result.error = scriptData.GetString("error");
-                    onFinish(result);
-                }
-                else
-                {
-                    onFinish(result);
-                }
-            }
+            if (scriptData != null && scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                result.error = scriptData.GetString("error");
+            onFinish(result);
         });
     }
 
