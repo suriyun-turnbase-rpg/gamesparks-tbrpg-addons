@@ -54,7 +54,10 @@ public partial class GSGameService
             if (scriptData != null && scriptData.ContainsKey("list"))
             {
                 var list = scriptData.GetGSDataList("list");
-                // TODO: Set list data
+                foreach (var entry in list)
+                {
+                    result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
+                }
                 onFinish(result);
             }
         });
@@ -103,9 +106,7 @@ public partial class GSGameService
                 else
                 {
                     var player = scriptData.GetGSData("player");
-                    var resultPlayer = new Player();
-                    Player.CloneTo(JsonUtility.FromJson<DbPlayer>(player.JSON), resultPlayer);
-                    result.player = resultPlayer;
+                    result.player = JsonUtility.FromJson<Player>(player.JSON);
                     onFinish(result);
                 }
             }
@@ -131,9 +132,7 @@ public partial class GSGameService
                 else
                 {
                     var player = scriptData.GetGSData("player");
-                    var resultPlayer = new Player();
-                    Player.CloneTo(JsonUtility.FromJson<DbPlayer>(player.JSON), resultPlayer);
-                    result.player = resultPlayer;
+                    result.player = JsonUtility.FromJson<Player>(player.JSON);
                     onFinish(result);
                 }
             }
@@ -159,9 +158,7 @@ public partial class GSGameService
                 else
                 {
                     var player = scriptData.GetGSData("player");
-                    var resultPlayer = new Player();
-                    Player.CloneTo(JsonUtility.FromJson<DbPlayer>(player.JSON), resultPlayer);
-                    result.player = resultPlayer;
+                    result.player = JsonUtility.FromJson<Player>(player.JSON);
                     onFinish(result);
                 }
             }
