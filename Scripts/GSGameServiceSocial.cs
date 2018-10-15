@@ -84,9 +84,9 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoFriendAccept(string playerId, string loginToken, string targetPlayerId, UnityAction<FriendListResult> onFinish)
+    protected override void DoFriendAccept(string playerId, string loginToken, string targetPlayerId, UnityAction<PlayerResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerResult();
         var data = new GSRequestData();
         data.AddString("targetPlayerId", targetPlayerId);
         var request = GetGSEventRequest("FriendAccept", data);
@@ -102,20 +102,19 @@ public partial class GSGameService
                 }
                 else
                 {
-                    var list = scriptData.GetGSDataList("list");
-                    foreach (var entry in list)
-                    {
-                        result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
-                    }
+                    var player = scriptData.GetGSData("player");
+                    var resultPlayer = new Player();
+                    Player.CloneTo(JsonUtility.FromJson<DbPlayer>(player.JSON), resultPlayer);
+                    result.player = resultPlayer;
                     onFinish(result);
                 }
             }
         });
     }
 
-    protected override void DoFriendDecline(string playerId, string loginToken, string targetPlayerId, UnityAction<GameServiceResult> onFinish)
+    protected override void DoFriendDecline(string playerId, string loginToken, string targetPlayerId, UnityAction<PlayerResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerResult();
         var data = new GSRequestData();
         data.AddString("targetPlayerId", targetPlayerId);
         var request = GetGSEventRequest("FriendDecline", data);
@@ -131,20 +130,19 @@ public partial class GSGameService
                 }
                 else
                 {
-                    var list = scriptData.GetGSDataList("list");
-                    foreach (var entry in list)
-                    {
-                        result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
-                    }
+                    var player = scriptData.GetGSData("player");
+                    var resultPlayer = new Player();
+                    Player.CloneTo(JsonUtility.FromJson<DbPlayer>(player.JSON), resultPlayer);
+                    result.player = resultPlayer;
                     onFinish(result);
                 }
             }
         });
     }
 
-    protected override void DoFriendDelete(string playerId, string loginToken, string targetPlayerId, UnityAction<FriendListResult> onFinish)
+    protected override void DoFriendDelete(string playerId, string loginToken, string targetPlayerId, UnityAction<PlayerResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerResult();
         var data = new GSRequestData();
         data.AddString("targetPlayerId", targetPlayerId);
         var request = GetGSEventRequest("FriendDelete", data);
@@ -160,11 +158,10 @@ public partial class GSGameService
                 }
                 else
                 {
-                    var list = scriptData.GetGSDataList("list");
-                    foreach (var entry in list)
-                    {
-                        result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
-                    }
+                    var player = scriptData.GetGSData("player");
+                    var resultPlayer = new Player();
+                    Player.CloneTo(JsonUtility.FromJson<DbPlayer>(player.JSON), resultPlayer);
+                    result.player = resultPlayer;
                     onFinish(result);
                 }
             }
