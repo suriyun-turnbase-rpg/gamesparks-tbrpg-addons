@@ -80,79 +80,46 @@ public partial class GSGameService
 
     protected override void DoFriendAccept(string playerId, string loginToken, string targetPlayerId, UnityAction<GameServiceResult> onFinish)
     {
-        var result = new PlayerResult();
+        var result = new GameServiceResult();
         var data = new GSRequestData();
         data.AddString("targetPlayerId", targetPlayerId);
         var request = GetGSEventRequest("FriendAccept", data);
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
-            if (scriptData != null)
-            {
-                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
-                {
-                    result.error = scriptData.GetString("error");
-                    onFinish(result);
-                }
-                else
-                {
-                    var player = scriptData.GetGSData("player");
-                    result.player = JsonUtility.FromJson<Player>(player.JSON);
-                    onFinish(result);
-                }
-            }
+            if (scriptData != null && scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                result.error = scriptData.GetString("error");
+            onFinish(result);
         });
     }
 
     protected override void DoFriendDecline(string playerId, string loginToken, string targetPlayerId, UnityAction<GameServiceResult> onFinish)
     {
-        var result = new PlayerResult();
+        var result = new GameServiceResult();
         var data = new GSRequestData();
         data.AddString("targetPlayerId", targetPlayerId);
         var request = GetGSEventRequest("FriendDecline", data);
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
-            if (scriptData != null)
-            {
-                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
-                {
-                    result.error = scriptData.GetString("error");
-                    onFinish(result);
-                }
-                else
-                {
-                    var player = scriptData.GetGSData("player");
-                    result.player = JsonUtility.FromJson<Player>(player.JSON);
-                    onFinish(result);
-                }
-            }
+            if (scriptData != null && scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                result.error = scriptData.GetString("error");
+            onFinish(result);
         });
     }
 
     protected override void DoFriendDelete(string playerId, string loginToken, string targetPlayerId, UnityAction<GameServiceResult> onFinish)
     {
-        var result = new PlayerResult();
+        var result = new GameServiceResult();
         var data = new GSRequestData();
         data.AddString("targetPlayerId", targetPlayerId);
         var request = GetGSEventRequest("FriendDelete", data);
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
-            if (scriptData != null)
-            {
-                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
-                {
-                    result.error = scriptData.GetString("error");
-                    onFinish(result);
-                }
-                else
-                {
-                    var player = scriptData.GetGSData("player");
-                    result.player = JsonUtility.FromJson<Player>(player.JSON);
-                    onFinish(result);
-                }
-            }
+            if (scriptData != null && scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                result.error = scriptData.GetString("error");
+            onFinish(result);
         });
     }
 }
