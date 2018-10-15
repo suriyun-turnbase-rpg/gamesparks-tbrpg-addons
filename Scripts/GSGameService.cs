@@ -167,9 +167,7 @@ public partial class GSGameService : BaseGameService
                 var list = scriptData.GetGSDataList("list");
                 foreach (var entry in list)
                 {
-                    var resultEntry = new PlayerItem();
-                    PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                    result.list.Add(resultEntry);
+                    result.list.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                 }
                 onFinish(result);
             }
@@ -188,9 +186,7 @@ public partial class GSGameService : BaseGameService
                 var list = scriptData.GetGSDataList("list");
                 foreach (var entry in list)
                 {
-                    var resultEntry = new PlayerCurrency();
-                    PlayerCurrency.CloneTo(JsonUtility.FromJson<DbPlayerCurrency>(entry.JSON), resultEntry);
-                    result.list.Add(resultEntry);
+                    result.list.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                 }
                 onFinish(result);
             }
@@ -209,9 +205,7 @@ public partial class GSGameService : BaseGameService
                 var list = scriptData.GetGSDataList("list");
                 foreach (var entry in list)
                 {
-                    var resultEntry = new PlayerStamina();
-                    PlayerStamina.CloneTo(JsonUtility.FromJson<DbPlayerStamina>(entry.JSON), resultEntry);
-                    result.list.Add(resultEntry);
+                    result.list.Add(JsonUtility.FromJson<PlayerStamina>(entry.JSON));
                 }
                 onFinish(result);
             }
@@ -230,9 +224,7 @@ public partial class GSGameService : BaseGameService
                 var list = scriptData.GetGSDataList("list");
                 foreach (var entry in list)
                 {
-                    var resultEntry = new PlayerFormation();
-                    PlayerFormation.CloneTo(JsonUtility.FromJson<DbPlayerFormation>(entry.JSON), resultEntry);
-                    result.list.Add(resultEntry);
+                    result.list.Add(JsonUtility.FromJson<PlayerFormation>(entry.JSON));
                 }
                 onFinish(result);
             }
@@ -251,9 +243,7 @@ public partial class GSGameService : BaseGameService
                 var list = scriptData.GetGSDataList("list");
                 foreach (var entry in list)
                 {
-                    var resultEntry = new PlayerUnlockItem();
-                    PlayerUnlockItem.CloneTo(JsonUtility.FromJson<DbPlayerUnlockItem>(entry.JSON), resultEntry);
-                    result.list.Add(resultEntry);
+                    result.list.Add(JsonUtility.FromJson<PlayerUnlockItem>(entry.JSON));
                 }
                 onFinish(result);
             }
@@ -272,9 +262,7 @@ public partial class GSGameService : BaseGameService
                 var list = scriptData.GetGSDataList("list");
                 foreach (var entry in list)
                 {
-                    var resultEntry = new PlayerClearStage();
-                    PlayerClearStage.CloneTo(JsonUtility.FromJson<DbPlayerClearStage>(entry.JSON), resultEntry);
-                    result.list.Add(resultEntry);
+                    result.list.Add(JsonUtility.FromJson<PlayerClearStage>(entry.JSON));
                 }
                 onFinish(result);
             }

@@ -36,16 +36,12 @@ public partial class GSGameService
                     
                     foreach (var entry in updateItems)
                     {
-                        var resultEntry = new PlayerItem();
-                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                        result.updateItems.Add(resultEntry);
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
                     result.deleteItemIds.AddRange(deleteItemIds);
                     foreach (var entry in updateCurrencies)
                     {
-                        var resultEntry = new PlayerCurrency();
-                        PlayerCurrency.CloneTo(JsonUtility.FromJson<DbPlayerCurrency>(entry.JSON), resultEntry);
-                        result.updateCurrencies.Add(resultEntry);
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
                     onFinish(result);
                 }
@@ -83,16 +79,12 @@ public partial class GSGameService
 
                     foreach (var entry in updateItems)
                     {
-                        var resultEntry = new PlayerItem();
-                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                        result.updateItems.Add(resultEntry);
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
                     result.deleteItemIds.AddRange(deleteItemIds);
                     foreach (var entry in updateCurrencies)
                     {
-                        var resultEntry = new PlayerCurrency();
-                        PlayerCurrency.CloneTo(JsonUtility.FromJson<DbPlayerCurrency>(entry.JSON), resultEntry);
-                        result.updateCurrencies.Add(resultEntry);
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
                     onFinish(result);
                 }
@@ -129,16 +121,12 @@ public partial class GSGameService
 
                     foreach (var entry in updateItems)
                     {
-                        var resultEntry = new PlayerItem();
-                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                        result.updateItems.Add(resultEntry);
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
                     result.deleteItemIds.AddRange(deleteItemIds);
                     foreach (var entry in updateCurrencies)
                     {
-                        var resultEntry = new PlayerCurrency();
-                        PlayerCurrency.CloneTo(JsonUtility.FromJson<DbPlayerCurrency>(entry.JSON), resultEntry);
-                        result.updateCurrencies.Add(resultEntry);
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
                     onFinish(result);
                 }
@@ -170,9 +158,7 @@ public partial class GSGameService
 
                     foreach (var entry in updateItems)
                     {
-                        var resultEntry = new PlayerItem();
-                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                        result.updateItems.Add(resultEntry);
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
                     onFinish(result);
                 }
@@ -202,9 +188,7 @@ public partial class GSGameService
 
                     foreach (var entry in updateItems)
                     {
-                        var resultEntry = new PlayerItem();
-                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                        result.updateItems.Add(resultEntry);
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
                     onFinish(result);
                 }
@@ -254,22 +238,16 @@ public partial class GSGameService
 
                     foreach (var entry in createItems)
                     {
-                        var resultEntry = new PlayerItem();
-                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                        result.createItems.Add(resultEntry);
+                        result.createItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
                     foreach (var entry in updateItems)
                     {
-                        var resultEntry = new PlayerItem();
-                        PlayerItem.CloneTo(JsonUtility.FromJson<DbPlayerItem>(entry.JSON), resultEntry);
-                        result.updateItems.Add(resultEntry);
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
                     result.deleteItemIds.AddRange(deleteItemIds);
                     foreach (var entry in updateCurrencies)
                     {
-                        var resultEntry = new PlayerCurrency();
-                        PlayerCurrency.CloneTo(JsonUtility.FromJson<DbPlayerCurrency>(entry.JSON), resultEntry);
-                        result.updateCurrencies.Add(resultEntry);
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
                     onFinish(result);
                 }
