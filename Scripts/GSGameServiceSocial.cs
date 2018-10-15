@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public partial class GSGameService
 {
-    protected override void DoGetRandomPlayerList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoGetHelperList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
     {
 
     }
