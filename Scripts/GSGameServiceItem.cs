@@ -212,6 +212,22 @@ public partial class GSGameService
         });
     }
 
+    protected override void DoGetIAPPackageList(UnityAction<AvailableIAPPackageListResult> onFinish)
+    {
+        var result = new AvailableIAPPackageListResult();
+        var request = GetGSEventRequest("GetIAPPackageList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetStringList("list");
+                result.list = list;
+                onFinish(result);
+            }
+        });
+    }
+
     protected override void DoOpenLootBox(string playerId, string loginToken, string lootBoxDataId, int packIndex, UnityAction<ItemResult> onFinish)
     {
         var result = new ItemResult();
@@ -253,5 +269,11 @@ public partial class GSGameService
                 }
             }
         });
+    }
+
+    protected override void DoOpenIAPPackage(string playerId, string loginToken, string iapPackageDataId, UnityAction<ItemResult> onFinish)
+    {
+        var result = new ItemResult();
+        onFinish(result);
     }
 }
