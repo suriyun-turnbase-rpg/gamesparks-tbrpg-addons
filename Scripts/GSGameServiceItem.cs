@@ -271,17 +271,11 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoOpenIAPPackage_iOS(string playerId, string loginToken, string receipt, UnityAction<ItemResult> onFinish)
+    protected override void DoOpenIAPPackage_iOS(string playerId, string loginToken, string iapPackageDataId, string receipt, UnityAction<ItemResult> onFinish)
     {
     }
 
-    protected override void DoOpenIAPPackage_Android(string playerId, string loginToken, string receipt, UnityAction<ItemResult> onFinish)
+    protected override void DoOpenIAPPackage_Android(string playerId, string loginToken, string iapPackageDataId, string data, string signature, UnityAction<ItemResult> onFinish)
     {
-    }
-
-    protected void DoOpenIAPPackage(string playerId, string loginToken, string iapPackageDataId, UnityAction<ItemResult> onFinish)
-    {
-        var result = new ItemResult();
-        onFinish(result);
     }
 }
