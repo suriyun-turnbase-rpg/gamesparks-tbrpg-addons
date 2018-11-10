@@ -273,9 +273,15 @@ public partial class GSGameService
 
     protected override void DoOpenIAPPackage_iOS(string playerId, string loginToken, string iapPackageDataId, string receipt, UnityAction<ItemResult> onFinish)
     {
+        var result = new ItemResult();
+        result.error = GameServiceErrorCode.NOT_AVAILABLE;
+        onFinish(result);
     }
 
     protected override void DoOpenIAPPackage_Android(string playerId, string loginToken, string iapPackageDataId, string data, string signature, UnityAction<ItemResult> onFinish)
     {
+        var result = new ItemResult();
+        result.error = GameServiceErrorCode.NOT_AVAILABLE;
+        onFinish(result);
     }
 }
