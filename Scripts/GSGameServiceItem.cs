@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using GameSparks.Core;
+using GameSparks.Api.Requests;
+using GameSparks.Api.Responses;
 
 public partial class GSGameService
 {
@@ -268,14 +270,42 @@ public partial class GSGameService
     protected override void DoOpenIapPackage_iOS(string playerId, string loginToken, string iapPackageDataId, string receipt, UnityAction<ItemResult> onFinish)
     {
         var result = new ItemResult();
-        result.error = GameServiceErrorCode.NOT_AVAILABLE;
-        onFinish(result);
+        var request = new IOSBuyGoodsRequest();
+        request.SetReceipt(receipt);
+        request.Send((response) =>
+        {
+            IapResponse(response, onFinish);
+        });
     }
 
     protected override void DoOpenIapPackage_Android(string playerId, string loginToken, string iapPackageDataId, string data, string signature, UnityAction<ItemResult> onFinish)
     {
+        var request = new GooglePlayBuyGoodsRequest();
+        request.SetSignedData(data);
+        request.SetSignature(signature);
+        request.Send((response) =>
+        {
+            IapResponse(response, onFinish);
+        });
+    }
+
+    private void IapResponse(BuyVirtualGoodResponse response, UnityAction<ItemResult> onFinish)
+    {
         var result = new ItemResult();
-        result.error = GameServiceErrorCode.NOT_AVAILABLE;
-        onFinish(result);
+
+        if (!response.HasErrors)
+        {
+            if (response.ScriptData != null)
+            {
+
+            }
+            onFinish(result);
+        }
+        else
+        {
+            Debug.LogError("GameSparks error while request accout details: " + response.Errors.JSON);
+            result.error = GameServiceErrorCode.UNKNOW;
+            onFinish(result);
+        }
     }
 }
