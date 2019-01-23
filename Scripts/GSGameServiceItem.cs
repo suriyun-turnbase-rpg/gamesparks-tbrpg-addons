@@ -207,11 +207,10 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoGetIAPPackageList(UnityAction<AvailableIAPPackageListResult> onFinish)
+    protected override void DoGetAvailableIapPackageList(UnityAction<AvailableIapPackageListResult> onFinish)
     {
-        var result = new AvailableIAPPackageListResult();
-        var request = GetGSEventRequest("GetIAPPackageList");
-        /*
+        var result = new AvailableIapPackageListResult();
+        var request = GetGSEventRequest("GetAvailableIapPackageList");
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
@@ -222,8 +221,6 @@ public partial class GSGameService
             }
             onFinish(result);
         });
-        */
-        onFinish(result);
     }
 
     protected override void DoOpenLootBox(string playerId, string loginToken, string lootBoxDataId, int packIndex, UnityAction<ItemResult> onFinish)
@@ -268,14 +265,14 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoOpenIAPPackage_iOS(string playerId, string loginToken, string iapPackageDataId, string receipt, UnityAction<ItemResult> onFinish)
+    protected override void DoOpenIapPackage_iOS(string playerId, string loginToken, string iapPackageDataId, string receipt, UnityAction<ItemResult> onFinish)
     {
         var result = new ItemResult();
         result.error = GameServiceErrorCode.NOT_AVAILABLE;
         onFinish(result);
     }
 
-    protected override void DoOpenIAPPackage_Android(string playerId, string loginToken, string iapPackageDataId, string data, string signature, UnityAction<ItemResult> onFinish)
+    protected override void DoOpenIapPackage_Android(string playerId, string loginToken, string iapPackageDataId, string data, string signature, UnityAction<ItemResult> onFinish)
     {
         var result = new ItemResult();
         result.error = GameServiceErrorCode.NOT_AVAILABLE;
