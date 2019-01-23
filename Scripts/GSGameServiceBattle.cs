@@ -20,7 +20,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -29,9 +28,9 @@ public partial class GSGameService
                     
                     result.stamina = JsonUtility.FromJson<PlayerStamina>(stamina.JSON);
                     result.session = session;
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -51,7 +50,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -90,9 +88,9 @@ public partial class GSGameService
                     result.rating = rating;
                     result.clearStage = JsonUtility.FromJson<PlayerClearStage>(clearStage.JSON);
                     result.player = JsonUtility.FromJson<Player>(player.JSON);
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -108,7 +106,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -117,9 +114,9 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -137,15 +134,14 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
                     var player = scriptData.GetGSData("player");
                     result.player = JsonUtility.FromJson<Player>(player.JSON);
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -165,7 +161,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -174,9 +169,9 @@ public partial class GSGameService
                     {
                         result.list.Add(JsonUtility.FromJson<PlayerFormation>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 }

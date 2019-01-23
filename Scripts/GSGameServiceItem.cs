@@ -26,7 +26,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -43,9 +42,9 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -69,7 +68,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -86,9 +84,9 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -111,7 +109,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -128,9 +125,9 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -150,7 +147,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -160,9 +156,9 @@ public partial class GSGameService
                     {
                         result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -180,7 +176,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -190,9 +185,9 @@ public partial class GSGameService
                     {
                         result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 
@@ -207,8 +202,8 @@ public partial class GSGameService
             {
                 var list = scriptData.GetStringList("list");
                 result.list = list;
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -216,6 +211,7 @@ public partial class GSGameService
     {
         var result = new AvailableIAPPackageListResult();
         var request = GetGSEventRequest("GetIAPPackageList");
+        /*
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
@@ -223,9 +219,11 @@ public partial class GSGameService
             {
                 var list = scriptData.GetStringList("list");
                 result.list = list;
-                onFinish(result);
             }
+            onFinish(result);
         });
+        */
+        onFinish(result);
     }
 
     protected override void DoOpenLootBox(string playerId, string loginToken, string lootBoxDataId, int packIndex, UnityAction<ItemResult> onFinish)
@@ -243,7 +241,6 @@ public partial class GSGameService
                 if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
                 {
                     result.error = scriptData.GetString("error");
-                    onFinish(result);
                 }
                 else
                 {
@@ -265,9 +262,9 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
-                    onFinish(result);
                 }
             }
+            onFinish(result);
         });
     }
 

@@ -20,8 +20,8 @@ public partial class GSGameService
                 {
                     result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -39,8 +39,8 @@ public partial class GSGameService
                 {
                     result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -58,8 +58,8 @@ public partial class GSGameService
                 {
                     result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
