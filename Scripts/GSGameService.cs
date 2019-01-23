@@ -169,8 +169,8 @@ public partial class GSGameService : BaseGameService
                 {
                     result.list.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -188,8 +188,8 @@ public partial class GSGameService : BaseGameService
                 {
                     result.list.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -207,8 +207,8 @@ public partial class GSGameService : BaseGameService
                 {
                     result.list.Add(JsonUtility.FromJson<PlayerStamina>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -226,8 +226,8 @@ public partial class GSGameService : BaseGameService
                 {
                     result.list.Add(JsonUtility.FromJson<PlayerFormation>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -245,8 +245,8 @@ public partial class GSGameService : BaseGameService
                 {
                     result.list.Add(JsonUtility.FromJson<PlayerUnlockItem>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
         });
     }
 
@@ -264,8 +264,23 @@ public partial class GSGameService : BaseGameService
                 {
                     result.list.Add(JsonUtility.FromJson<PlayerClearStage>(entry.JSON));
                 }
-                onFinish(result);
             }
+            onFinish(result);
+        });
+    }
+
+    protected override void DoGetServiceTime(UnityAction<ServiceTimeResult> onFinish)
+    {
+        var result = new ServiceTimeResult();
+        var request = GetGSEventRequest("ServiceTime");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("serviceTime"))
+            {
+                result.serviceTime = scriptData.GetLong("serviceTime").Value;
+            }
+            onFinish(result);
         });
     }
 }
