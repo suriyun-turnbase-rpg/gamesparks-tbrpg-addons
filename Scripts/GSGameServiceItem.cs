@@ -295,9 +295,34 @@ public partial class GSGameService
 
         if (!response.HasErrors)
         {
-            if (response.ScriptData != null)
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null)
             {
+                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                {
+                    result.error = scriptData.GetString("error");
+                }
+                else
+                {
+                    var createItems = scriptData.GetGSDataList("createItems");
+                    var updateItems = scriptData.GetGSDataList("updateItems");
+                    var deleteItemIds = scriptData.GetStringList("deleteItemIds");
+                    var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
 
+                    foreach (var entry in createItems)
+                    {
+                        result.createItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
+                    foreach (var entry in updateItems)
+                    {
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
+                    result.deleteItemIds.AddRange(deleteItemIds);
+                    foreach (var entry in updateCurrencies)
+                    {
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
+                    }
+                }
             }
             onFinish(result);
         }
