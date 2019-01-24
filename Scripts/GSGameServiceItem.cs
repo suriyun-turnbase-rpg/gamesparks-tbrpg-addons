@@ -272,9 +272,6 @@ public partial class GSGameService
         var result = new ItemResult();
         var request = new IOSBuyGoodsRequest();
         request.SetReceipt(receipt);
-        var gsData = new GSRequestData();
-        gsData.AddString("iapPackageDataId", iapPackageDataId);
-        request.SetScriptData(gsData);
         request.Send((response) =>
         {
             IapResponse(response, onFinish);
@@ -286,9 +283,6 @@ public partial class GSGameService
         var request = new GooglePlayBuyGoodsRequest();
         request.SetSignedData(data);
         request.SetSignature(signature);
-        var gsData = new GSRequestData();
-        gsData.AddString("iapPackageDataId", iapPackageDataId);
-        request.SetScriptData(gsData);
         request.Send((response) =>
         {
             IapResponse(response, onFinish);
