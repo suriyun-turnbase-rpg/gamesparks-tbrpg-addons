@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using GameSparks.Core;
 using GameSparks.Api.Requests;
 
 public partial class GSGameService
@@ -14,6 +15,7 @@ public partial class GSGameService
         {
             if (!accountResponse.HasErrors)
             {
+                player.Id = accountResponse.UserId;
                 player.ProfileName = accountResponse.DisplayName;
                 if (accountResponse.ScriptData != null)
                 {
@@ -43,9 +45,6 @@ public partial class GSGameService
         request.SetPassword(password);
         request.Send((authResponse) =>
         {
-            player.Id = authResponse.UserId;
-            player.LoginToken = authResponse.AuthToken;
-
             if (!authResponse.HasErrors)
                 RequestAccountDetails(result, onFinish);
             else
@@ -77,9 +76,6 @@ public partial class GSGameService
         var request = new DeviceAuthenticationRequest();
         request.Send((authResponse) =>
         {
-            player.Id = authResponse.UserId;
-            player.LoginToken = authResponse.AuthToken;
-
             if (!authResponse.HasErrors)
                 RequestAccountDetails(result, onFinish);
             else
@@ -94,7 +90,13 @@ public partial class GSGameService
     protected override void DoValidateLoginToken(string playerId, string loginToken, bool refreshToken, UnityAction<PlayerResult> onFinish)
     {
         var result = new PlayerResult();
-        result.error = GameServiceErrorCode.INVALID_PLAYER_DATA;
+        if (GS.Authenticated && !string.IsNullOrEmpty(playerId))
+        {
+            var player = result.player = new Player();
+            RequestAccountDetails(result, onFinish);
+            return;
+        }
+        result.error = GameServiceErrorCode.INVALID_LOGIN_TOKEN;
         onFinish(result);
     }
 
@@ -130,7 +132,6 @@ public partial class GSGameService
         request.Send((authResponse) =>
         {
             player.Id = authResponse.UserId;
-            player.LoginToken = authResponse.AuthToken;
 
             if (!authResponse.HasErrors)
                 onFinish(result);
