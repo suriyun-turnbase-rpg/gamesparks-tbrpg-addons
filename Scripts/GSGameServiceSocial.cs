@@ -63,6 +63,25 @@ public partial class GSGameService
         });
     }
 
+    protected override void DoFindUser(string playerId, string loginToken, string displayName, UnityAction<FriendListResult> onFinish)
+    {
+        var result = new FriendListResult();
+        var request = GetGSEventRequest("FindUser");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    result.list.Add(JsonUtility.FromJson<Player>(entry.JSON));
+                }
+            }
+            onFinish(result);
+        });
+    }
+
     protected override void DoFriendRequest(string playerId, string loginToken, string targetPlayerId, UnityAction<GameServiceResult> onFinish)
     {
         var result = new GameServiceResult();
