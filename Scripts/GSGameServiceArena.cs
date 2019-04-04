@@ -58,12 +58,12 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoFinishDuel(string playerId, string loginToken, string session, ushort battleResult, int deadCharacters, UnityAction<FinishDuelResult> onFinish)
+    protected override void DoFinishDuel(string playerId, string loginToken, string session, EBattleResult battleResult, int deadCharacters, UnityAction<FinishDuelResult> onFinish)
     {
         var result = new FinishDuelResult();
         var data = new GSRequestData();
         data.AddString("session", session);
-        data.AddNumber("battleResult", battleResult);
+        data.AddNumber("battleResult", (byte)battleResult);
         data.AddNumber("deadCharacters", deadCharacters);
         var request = GetGSEventRequest("FinishDuel", data);
         request.Send((response) =>

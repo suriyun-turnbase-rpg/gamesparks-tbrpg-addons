@@ -34,12 +34,12 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoFinishStage(string playerId, string loginToken, string session, ushort battleResult, int deadCharacters, UnityAction<FinishStageResult> onFinish)
+    protected override void DoFinishStage(string playerId, string loginToken, string session, EBattleResult battleResult, int deadCharacters, UnityAction<FinishStageResult> onFinish)
     {
         var result = new FinishStageResult();
         var data = new GSRequestData();
         data.AddString("session", session);
-        data.AddNumber("battleResult", battleResult);
+        data.AddNumber("battleResult", (byte)battleResult);
         data.AddNumber("deadCharacters", deadCharacters);
         var request = GetGSEventRequest("FinishStage", data);
         request.Send((response) =>
@@ -120,11 +120,12 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoSelectFormation(string playerId, string loginToken, string formationName, UnityAction<PlayerResult> onFinish)
+    protected override void DoSelectFormation(string playerId, string loginToken, string formationName, EFormationType formationType, UnityAction<PlayerResult> onFinish)
     {
         var result = new PlayerResult();
         var data = new GSRequestData();
         data.AddString("formationName", formationName);
+        data.AddNumber("formationType", (byte)formationType);
         var request = GetGSEventRequest("SelectFormation", data);
         request.Send((response) =>
         {
