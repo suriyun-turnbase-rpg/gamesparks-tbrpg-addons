@@ -52,6 +52,7 @@ public partial class GSGameService : BaseGameService
         var startItemsJson = "";
         var startCharactersJson = "";
         var unlockStagesJson = "";
+        var arenaRanksJson = "";
 
         foreach (var item in gameDatabase.Items)
         {
@@ -126,6 +127,16 @@ public partial class GSGameService : BaseGameService
         }
         unlockStagesJson = "[" + unlockStagesJson + "]";
 
+        foreach (var entry in gameDatabase.arenaRanks)
+        {
+            if (entry == null)
+                continue;
+            if (!string.IsNullOrEmpty(arenaRanksJson))
+                arenaRanksJson += ",";
+            arenaRanksJson += "\"" + entry.ToJson() + "\"";
+        }
+        arenaRanksJson = "[" + arenaRanksJson + "]";
+
         var jsonCombined = "{\"items\":" + itemsJson + "," +
             "\"currencies\":" + currenciesJson + "," +
             "\"staminas\":" + staminasJson + "," +
@@ -136,6 +147,9 @@ public partial class GSGameService : BaseGameService
             "\"startItems\":" + startItemsJson + "," +
             "\"startCharacters\":" + startCharactersJson + "," +
             "\"unlockStages\":" + unlockStagesJson + "," +
+            "\"arenaRanks\":" + arenaRanksJson + "," +
+            "\"arenaWinScoreIncrease\":" + gameDatabase.arenaWinScoreIncrease + "," +
+            "\"arenaLoseScoreDecrease\":" + gameDatabase.arenaLoseScoreDecrease + "," +
             "\"playerMaxLevel\":" + gameDatabase.playerMaxLevel + "," +
             "\"playerExpTable\":" + gameDatabase.playerExpTable.ToJson() + "," +
             "\"revivePrice\":" + gameDatabase.revivePrice + "," +

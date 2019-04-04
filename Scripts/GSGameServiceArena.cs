@@ -44,9 +44,14 @@ public partial class GSGameService
                 {
                     var stamina = scriptData.GetGSData("stamina");
                     var session = scriptData.GetString("session");
+                    var opponentCharacters = scriptData.GetGSDataList("opponentCharacters");
                     
                     result.stamina = JsonUtility.FromJson<PlayerStamina>(stamina.JSON);
                     result.session = session;
+                    foreach (var entry in opponentCharacters)
+                    {
+                        result.opponentCharacters.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
                 }
             }
             onFinish(result);
@@ -80,6 +85,7 @@ public partial class GSGameService
                     var rewardPlayerExp = scriptData.GetInt("rewardPlayerExp").Value;
                     var rewardCharacterExp = scriptData.GetInt("rewardCharacterExp").Value;
                     var rewardSoftCurrency = scriptData.GetInt("rewardSoftCurrency").Value;
+                    var rewardHardCurrency = scriptData.GetInt("rewardHardCurrency").Value;
                     var rating = scriptData.GetInt("rating").Value;
                     var player = scriptData.GetGSData("player");
 
@@ -100,9 +106,8 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
-                    result.rewardPlayerExp = rewardPlayerExp;
-                    result.rewardCharacterExp = rewardCharacterExp;
                     result.rewardSoftCurrency = rewardSoftCurrency;
+                    result.rewardHardCurrency = rewardHardCurrency;
                     result.rating = rating;
                     result.player = JsonUtility.FromJson<Player>(player.JSON);
                 }
