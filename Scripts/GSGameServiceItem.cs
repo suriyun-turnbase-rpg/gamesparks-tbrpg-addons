@@ -269,7 +269,6 @@ public partial class GSGameService
 
     protected override void DoOpenIapPackage_iOS(string playerId, string loginToken, string iapPackageDataId, string receipt, UnityAction<ItemResult> onFinish)
     {
-        var result = new ItemResult();
         var request = new IOSBuyGoodsRequest();
         request.SetReceipt(receipt);
         request.Send((response) =>

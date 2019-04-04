@@ -39,7 +39,7 @@ public partial class GSGameService
     protected override void DoLogin(string username, string password, UnityAction<PlayerResult> onFinish)
     {
         var result = new PlayerResult();
-        var player = result.player = new Player();
+        result.player = new Player();
         var request = new AuthenticationRequest();
         request.SetUserName(username);
         request.SetPassword(password);
@@ -72,7 +72,7 @@ public partial class GSGameService
     protected override void DoGuestLogin(string deviceId, UnityAction<PlayerResult> onFinish)
     {
         var result = new PlayerResult();
-        var player = result.player = new Player();
+        result.player = new Player();
         var request = new DeviceAuthenticationRequest();
         request.Send((authResponse) =>
         {
@@ -92,7 +92,7 @@ public partial class GSGameService
         var result = new PlayerResult();
         if (GS.Authenticated && !string.IsNullOrEmpty(playerId))
         {
-            var player = result.player = new Player();
+            result.player = new Player();
             RequestAccountDetails(result, onFinish);
             return;
         }
