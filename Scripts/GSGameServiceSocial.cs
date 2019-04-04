@@ -66,7 +66,9 @@ public partial class GSGameService
     protected override void DoFindUser(string playerId, string loginToken, string displayName, UnityAction<FriendListResult> onFinish)
     {
         var result = new FriendListResult();
-        var request = GetGSEventRequest("FindUser");
+        var data = new GSRequestData();
+        data.AddString("displayName", displayName);
+        var request = GetGSEventRequest("FindUser", data);
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
