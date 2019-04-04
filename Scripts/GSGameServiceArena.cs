@@ -6,7 +6,7 @@ using GameSparks.Core;
 
 public partial class GSGameService
 {
-    protected override void DoGetOpponentList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoArenaGetOpponentList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
     {
         var result = new FriendListResult();
         var request = GetGSEventRequest("GetOpponentList");
