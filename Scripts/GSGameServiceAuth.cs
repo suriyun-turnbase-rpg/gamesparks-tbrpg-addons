@@ -23,6 +23,8 @@ public partial class GSGameService
                         player.Exp = accountResponse.ScriptData.GetInt("exp").Value;
                     if (accountResponse.ScriptData.ContainsKey("selectedFormation"))
                         player.SelectedFormation = accountResponse.ScriptData.GetString("selectedFormation");
+                    if (accountResponse.ScriptData.ContainsKey("selectedArenaFormation"))
+                        player.SelectedArenaFormation = accountResponse.ScriptData.GetString("selectedArenaFormation");
                 }
                 result.player = player;
                 onFinish(result);

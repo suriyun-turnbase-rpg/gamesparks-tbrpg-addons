@@ -86,6 +86,7 @@ public partial class GSGameService
                     var rewardCharacterExp = scriptData.GetInt("rewardCharacterExp").Value;
                     var rewardSoftCurrency = scriptData.GetInt("rewardSoftCurrency").Value;
                     var rewardHardCurrency = scriptData.GetInt("rewardHardCurrency").Value;
+                    var updateScore = scriptData.GetInt("updateScore").Value;
                     var rating = scriptData.GetInt("rating").Value;
                     var player = scriptData.GetGSData("player");
 
@@ -108,6 +109,7 @@ public partial class GSGameService
                     }
                     result.rewardSoftCurrency = rewardSoftCurrency;
                     result.rewardHardCurrency = rewardHardCurrency;
+                    result.updateScore = updateScore;
                     result.rating = rating;
                     result.player = JsonUtility.FromJson<Player>(player.JSON);
                 }
