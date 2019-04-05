@@ -63,7 +63,7 @@ public partial class GSGameService : BaseGameService
         itemsJson = "{" + itemsJson + "}";
 
         currenciesJson = "{\"SOFT_CURRENCY\":\"" + gameDatabase.softCurrency.id + "\", \"HARD_CURRENCY\":\"" + gameDatabase.hardCurrency.id + "\"}";
-        staminasJson = "{\"STAGE\":" + gameDatabase.stageStamina.ToJson() + "}, {\"ARENA\":" + gameDatabase.arenaStamina.ToJson() + "}";
+        staminasJson = "{\"STAGE\":" + gameDatabase.stageStamina.ToJson() + ", \"ARENA\":" + gameDatabase.arenaStamina.ToJson() + "}";
 
         foreach (var entry in gameDatabase.Formations)
         {
@@ -133,7 +133,7 @@ public partial class GSGameService : BaseGameService
                 continue;
             if (!string.IsNullOrEmpty(arenaRanksJson))
                 arenaRanksJson += ",";
-            arenaRanksJson += "\"" + entry.ToJson() + "\"";
+            arenaRanksJson += entry.ToJson();
         }
         arenaRanksJson = "[" + arenaRanksJson + "]";
 
