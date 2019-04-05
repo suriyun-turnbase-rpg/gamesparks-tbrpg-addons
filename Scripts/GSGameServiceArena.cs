@@ -82,8 +82,6 @@ public partial class GSGameService
                     var updateItems = scriptData.GetGSDataList("updateItems");
                     var deleteItemIds = scriptData.GetStringList("deleteItemIds");
                     var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
-                    var rewardPlayerExp = scriptData.GetInt("rewardPlayerExp").Value;
-                    var rewardCharacterExp = scriptData.GetInt("rewardCharacterExp").Value;
                     var rewardSoftCurrency = scriptData.GetInt("rewardSoftCurrency").Value;
                     var rewardHardCurrency = scriptData.GetInt("rewardHardCurrency").Value;
                     var updateScore = scriptData.GetInt("updateScore").Value;
