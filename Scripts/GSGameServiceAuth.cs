@@ -25,6 +25,12 @@ public partial class GSGameService
                         player.SelectedFormation = accountResponse.ScriptData.GetString("selectedFormation");
                     if (accountResponse.ScriptData.ContainsKey("selectedArenaFormation"))
                         player.SelectedArenaFormation = accountResponse.ScriptData.GetString("selectedArenaFormation");
+                    if (accountResponse.ScriptData.ContainsKey("arenaScore"))
+                        player.arenaScore = accountResponse.ScriptData.GetInt("arenaScore").Value;
+                    if (accountResponse.ScriptData.ContainsKey("highestArenaRank"))
+                        player.highestArenaRank = accountResponse.ScriptData.GetInt("highestArenaRank").Value;
+                    if (accountResponse.ScriptData.ContainsKey("highestArenaRankCurrentSeason"))
+                        player.highestArenaRankCurrentSeason = accountResponse.ScriptData.GetInt("highestArenaRankCurrentSeason").Value;
                 }
                 result.player = player;
                 onFinish(result);
