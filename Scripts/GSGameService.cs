@@ -173,6 +173,25 @@ public partial class GSGameService : BaseGameService
         return request;
     }
 
+    protected override void DoGetAchievementList(string playerId, string loginToken, UnityAction<AchievementListResult> onFinish)
+    {
+        var result = new AchievementListResult();
+        var request = GetGSEventRequest("GetAchievementList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetGSDataList("list");
+                foreach (var entry in list)
+                {
+                    result.list.Add(JsonUtility.FromJson<PlayerAchievement>(entry.JSON));
+                }
+            }
+            onFinish(result);
+        });
+    }
+
     protected override void DoGetAuthList(string playerId, string loginToken, UnityAction<AuthListResult> onFinish)
     {
         var result = new AuthListResult();
