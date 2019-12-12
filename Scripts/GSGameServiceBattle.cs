@@ -6,11 +6,12 @@ using GameSparks.Core;
 
 public partial class GSGameService
 {
-    protected override void DoStartStage(string playerId, string loginToken, string stageDataId, UnityAction<StartStageResult> onFinish)
+    protected override void DoStartStage(string playerId, string loginToken, string stageDataId, string helperPlayerId, UnityAction<StartStageResult> onFinish)
     {
         var result = new StartStageResult();
         var data = new GSRequestData();
         data.AddString("stageDataId", stageDataId);
+        data.AddString("helperPlayerId", helperPlayerId);
         var request = GetGSEventRequest("StartStage", data);
         request.Send((response) =>
         {
