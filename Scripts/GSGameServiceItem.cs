@@ -332,4 +332,56 @@ public partial class GSGameService
             onFinish(result);
         }
     }
+
+    protected override void DoEarnAchievementReward(string playerId, string loginToken, string achievementId, UnityAction<EarnAchievementResult> onFinish)
+    {
+        var result = new EarnAchievementResult();
+        var data = new GSRequestData();
+        data.AddString("achievementId", achievementId);
+        var request = GetGSEventRequest("EarnAchievementReward", data);
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null)
+            {
+                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                {
+                    result.error = scriptData.GetString("error");
+                }
+                else
+                {
+                    var rewardItems = scriptData.GetGSDataList("rewardItems");
+                    var createItems = scriptData.GetGSDataList("createItems");
+                    var updateItems = scriptData.GetGSDataList("updateItems");
+                    var deleteItemIds = scriptData.GetStringList("deleteItemIds");
+                    var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
+                    var rewardSoftCurrency = scriptData.GetInt("rewardSoftCurrency").Value;
+                    var rewardHardCurrency = scriptData.GetInt("rewardHardCurrency").Value;
+                    var player = scriptData.GetGSData("player");
+
+                    foreach (var entry in rewardItems)
+                    {
+                        result.rewardItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
+                    foreach (var entry in createItems)
+                    {
+                        result.createItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
+                    foreach (var entry in updateItems)
+                    {
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
+                    result.deleteItemIds.AddRange(deleteItemIds);
+                    foreach (var entry in updateCurrencies)
+                    {
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
+                    }
+                    result.rewardSoftCurrency = rewardSoftCurrency;
+                    result.rewardHardCurrency = rewardHardCurrency;
+                    result.player = JsonUtility.FromJson<Player>(player.JSON);
+                }
+            }
+            onFinish(result);
+        });
+    }
 }
