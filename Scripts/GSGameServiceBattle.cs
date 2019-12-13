@@ -54,6 +54,10 @@ public partial class GSGameService
                 }
                 else
                 {
+                    var firstClearRewardPlayerExp = scriptData.GetInt("firstClearRewardPlayerExp").Value;
+                    var firstClearRewardSoftCurrency = scriptData.GetInt("firstClearRewardSoftCurrency").Value;
+                    var firstClearRewardHardCurrency = scriptData.GetInt("firstClearRewardHardCurrency").Value;
+                    var firstClearRewardItems = scriptData.GetGSDataList("firstClearRewardItems");
                     var rewardItems = scriptData.GetGSDataList("rewardItems");
                     var createItems = scriptData.GetGSDataList("createItems");
                     var updateItems = scriptData.GetGSDataList("updateItems");
@@ -66,6 +70,10 @@ public partial class GSGameService
                     var clearStage = scriptData.GetGSData("clearStage");
                     var player = scriptData.GetGSData("player");
 
+                    foreach (var entry in firstClearRewardItems)
+                    {
+                        result.firstClearRewardItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
                     foreach (var entry in rewardItems)
                     {
                         result.rewardItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
@@ -83,6 +91,9 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
+                    result.firstClearRewardPlayerExp = firstClearRewardPlayerExp;
+                    result.firstClearRewardSoftCurrency = firstClearRewardSoftCurrency;
+                    result.firstClearRewardHardCurrency = firstClearRewardHardCurrency;
                     result.rewardPlayerExp = rewardPlayerExp;
                     result.rewardCharacterExp = rewardCharacterExp;
                     result.rewardSoftCurrency = rewardSoftCurrency;

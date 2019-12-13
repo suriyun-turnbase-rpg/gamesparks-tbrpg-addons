@@ -355,6 +355,7 @@ public partial class GSGameService
                     var updateItems = scriptData.GetGSDataList("updateItems");
                     var deleteItemIds = scriptData.GetStringList("deleteItemIds");
                     var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
+                    var rewardPlayerExp = scriptData.GetInt("rewardPlayerExp").Value;
                     var rewardSoftCurrency = scriptData.GetInt("rewardSoftCurrency").Value;
                     var rewardHardCurrency = scriptData.GetInt("rewardHardCurrency").Value;
                     var player = scriptData.GetGSData("player");
@@ -376,6 +377,7 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
+                    result.rewardPlayerExp = rewardPlayerExp;
                     result.rewardSoftCurrency = rewardSoftCurrency;
                     result.rewardHardCurrency = rewardHardCurrency;
                     result.player = JsonUtility.FromJson<Player>(player.JSON);
