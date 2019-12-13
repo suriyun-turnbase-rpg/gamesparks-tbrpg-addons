@@ -42,6 +42,7 @@ public partial class GSGameService : BaseGameService
             return;
         }
         gameDatabase.Setup();
+        var achievementsJson = "";
         var itemsJson = "";
         var currenciesJson = "";
         var staminasJson = "";
@@ -53,6 +54,14 @@ public partial class GSGameService : BaseGameService
         var startCharactersJson = "";
         var unlockStagesJson = "";
         var arenaRanksJson = "";
+
+        foreach (var achievement in gameDatabase.Achievements)
+        {
+            if (!string.IsNullOrEmpty(achievementsJson))
+                achievementsJson += ",";
+            achievementsJson += "\"" + achievement.Key + "\":" + achievement.Value.ToJson();
+        }
+        achievementsJson = "{" + achievementsJson + "}";
 
         foreach (var item in gameDatabase.Items)
         {
@@ -137,7 +146,9 @@ public partial class GSGameService : BaseGameService
         }
         arenaRanksJson = "[" + arenaRanksJson + "]";
 
-        var jsonCombined = "{\"items\":" + itemsJson + "," +
+        var jsonCombined = "{" +
+            "\"achievements\":" + achievementsJson + "," +
+            "\"items\":" + itemsJson + "," +
             "\"currencies\":" + currenciesJson + "," +
             "\"staminas\":" + staminasJson + "," +
             "\"formations\":" + formationsJson + "," +
