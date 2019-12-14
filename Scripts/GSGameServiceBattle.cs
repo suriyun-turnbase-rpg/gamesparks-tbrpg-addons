@@ -54,6 +54,7 @@ public partial class GSGameService
                 }
                 else
                 {
+                    var isFirstClear = scriptData.GetBoolean("isFirstClear").Value;
                     var firstClearRewardPlayerExp = scriptData.GetInt("firstClearRewardPlayerExp").Value;
                     var firstClearRewardSoftCurrency = scriptData.GetInt("firstClearRewardSoftCurrency").Value;
                     var firstClearRewardHardCurrency = scriptData.GetInt("firstClearRewardHardCurrency").Value;
@@ -91,6 +92,7 @@ public partial class GSGameService
                     {
                         result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
                     }
+                    result.isFirstClear = isFirstClear;
                     result.firstClearRewardPlayerExp = firstClearRewardPlayerExp;
                     result.firstClearRewardSoftCurrency = firstClearRewardSoftCurrency;
                     result.firstClearRewardHardCurrency = firstClearRewardHardCurrency;
