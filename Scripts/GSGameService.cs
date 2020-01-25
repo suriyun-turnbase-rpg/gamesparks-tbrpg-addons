@@ -50,6 +50,7 @@ public partial class GSGameService : BaseGameService
         var stagesJson = "";
         var lootBoxesJson = "";
         var iapPackagesJson = "";
+        var hardCurrencyConvertionsJson = "";
         var startItemsJson = "";
         var startCharactersJson = "";
         var unlockStagesJson = "";
@@ -106,6 +107,14 @@ public partial class GSGameService : BaseGameService
         }
         iapPackagesJson = "{" + iapPackagesJson + "}";
 
+        foreach (var entry in gameDatabase.hardCurrencyConvertions)
+        {
+            if (!string.IsNullOrEmpty(hardCurrencyConvertionsJson))
+                hardCurrencyConvertionsJson += ",";
+            hardCurrencyConvertionsJson += entry.ToJson();
+        }
+        hardCurrencyConvertionsJson = "[" + hardCurrencyConvertionsJson + "]";
+
         foreach (var entry in gameDatabase.startItems)
         {
             if (entry == null || entry.item == null)
@@ -155,6 +164,7 @@ public partial class GSGameService : BaseGameService
             "\"stages\":" + stagesJson + "," +
             "\"lootBoxes\":" + lootBoxesJson + "," +
             "\"iapPackages\":" + iapPackagesJson + "," +
+            "\"hardCurrencyConvertions\":" + hardCurrencyConvertionsJson + "," +
             "\"startItems\":" + startItemsJson + "," +
             "\"startCharacters\":" + startCharactersJson + "," +
             "\"unlockStages\":" + unlockStagesJson + "," +
