@@ -386,4 +386,35 @@ public partial class GSGameService
             onFinish(result);
         });
     }
+
+    protected override void DoConvertHardCurrency(string playerId, string loginToken, int requireHardCurrency, UnityAction<HardCurrencyConversionResult> onFinish)
+    {
+        var result = new HardCurrencyConversionResult();
+        var data = new GSRequestData();
+        data.AddNumber("requireHardCurrency", requireHardCurrency);
+        var request = GetGSEventRequest("EarnAchievementReward", data);
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null)
+            {
+                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                {
+                    result.error = scriptData.GetString("error");
+                }
+                else
+                {
+                    var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
+                    var receiveSoftCurrency = scriptData.GetInt("receiveSoftCurrency").Value;
+                    foreach (var entry in updateCurrencies)
+                    {
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
+                    }
+                    result.requireHardCurrency = requireHardCurrency;
+                    result.receiveSoftCurrency = receiveSoftCurrency;
+                }
+            }
+            onFinish(result);
+        });
+    }
 }
