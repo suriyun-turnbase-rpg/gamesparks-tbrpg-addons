@@ -392,7 +392,7 @@ public partial class GSGameService
         var result = new HardCurrencyConversionResult();
         var data = new GSRequestData();
         data.AddNumber("requireHardCurrency", requireHardCurrency);
-        var request = GetGSEventRequest("EarnAchievementReward", data);
+        var request = GetGSEventRequest("ConvertHardCurrency", data);
         request.Send((response) =>
         {
             GSData scriptData = response.ScriptData;
