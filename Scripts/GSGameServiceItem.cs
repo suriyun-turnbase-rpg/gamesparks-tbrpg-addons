@@ -225,6 +225,22 @@ public partial class GSGameService
         });
     }
 
+    protected override void DoGetAvailableInGamePackageList(UnityAction<AvailableInGamePackageListResult> onFinish)
+    {
+        var result = new AvailableInGamePackageListResult();
+        var request = GetGSEventRequest("GetAvailableInGamePackageList");
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("list"))
+            {
+                var list = scriptData.GetStringList("list");
+                result.list = list;
+            }
+            onFinish(result);
+        });
+    }
+
     protected override void DoOpenLootBox(string playerId, string loginToken, string lootBoxDataId, int packIndex, UnityAction<ItemResult> onFinish)
     {
         var result = new ItemResult();
@@ -412,6 +428,47 @@ public partial class GSGameService
                     }
                     result.requireHardCurrency = requireHardCurrency;
                     result.receiveSoftCurrency = receiveSoftCurrency;
+                }
+            }
+            onFinish(result);
+        });
+    }
+
+    protected override void DoOpenInGamePackage(string playerId, string loginToken, string inGamePackageDataId, UnityAction<ItemResult> onFinish)
+    {
+        var result = new ItemResult();
+        var data = new GSRequestData();
+        data.AddString("inGamePackageDataId", inGamePackageDataId);
+        var request = GetGSEventRequest("OpenInGamePackage", data);
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null)
+            {
+                if (scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                {
+                    result.error = scriptData.GetString("error");
+                }
+                else
+                {
+                    var createItems = scriptData.GetGSDataList("createItems");
+                    var updateItems = scriptData.GetGSDataList("updateItems");
+                    var deleteItemIds = scriptData.GetStringList("deleteItemIds");
+                    var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
+
+                    foreach (var entry in createItems)
+                    {
+                        result.createItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
+                    foreach (var entry in updateItems)
+                    {
+                        result.updateItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
+                    result.deleteItemIds.AddRange(deleteItemIds);
+                    foreach (var entry in updateCurrencies)
+                    {
+                        result.updateCurrencies.Add(JsonUtility.FromJson<PlayerCurrency>(entry.JSON));
+                    }
                 }
             }
             onFinish(result);
