@@ -259,11 +259,16 @@ public partial class GSGameService
                 }
                 else
                 {
+                    var rewardItems = scriptData.GetGSDataList("rewardItems");
                     var createItems = scriptData.GetGSDataList("createItems");
                     var updateItems = scriptData.GetGSDataList("updateItems");
                     var deleteItemIds = scriptData.GetStringList("deleteItemIds");
                     var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
 
+                    foreach (var entry in rewardItems)
+                    {
+                        result.rewardItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
                     foreach (var entry in createItems)
                     {
                         result.createItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
@@ -319,11 +324,16 @@ public partial class GSGameService
                 }
                 else
                 {
+                    var rewardItems = scriptData.GetGSDataList("rewardItems");
                     var createItems = scriptData.GetGSDataList("createItems");
                     var updateItems = scriptData.GetGSDataList("updateItems");
                     var deleteItemIds = scriptData.GetStringList("deleteItemIds");
                     var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
 
+                    foreach (var entry in rewardItems)
+                    {
+                        result.rewardItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
                     foreach (var entry in createItems)
                     {
                         result.createItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
@@ -451,11 +461,16 @@ public partial class GSGameService
                 }
                 else
                 {
+                    var rewardItems = scriptData.GetGSDataList("rewardItems");
                     var createItems = scriptData.GetGSDataList("createItems");
                     var updateItems = scriptData.GetGSDataList("updateItems");
                     var deleteItemIds = scriptData.GetStringList("deleteItemIds");
                     var updateCurrencies = scriptData.GetGSDataList("updateCurrencies");
 
+                    foreach (var entry in rewardItems)
+                    {
+                        result.rewardItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
+                    }
                     foreach (var entry in createItems)
                     {
                         result.createItems.Add(JsonUtility.FromJson<PlayerItem>(entry.JSON));
