@@ -162,4 +162,19 @@ public partial class GSGameService
             onFinish(result);
         });
     }
+
+    protected override void DoFriendRequestDelete(string playerId, string loginToken, string targetPlayerId, UnityAction<GameServiceResult> onFinish)
+    {
+        var result = new GameServiceResult();
+        var data = new GSRequestData();
+        data.AddString("targetPlayerId", targetPlayerId);
+        var request = GetGSEventRequest("FriendRequestDelete", data);
+        request.Send((response) =>
+        {
+            GSData scriptData = response.ScriptData;
+            if (scriptData != null && scriptData.ContainsKey("error") && !string.IsNullOrEmpty(scriptData.GetString("error")))
+                result.error = scriptData.GetString("error");
+            onFinish(result);
+        });
+    }
 }
