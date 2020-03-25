@@ -60,7 +60,7 @@ public partial class GSGameService
                 Debug.LogError("GameSparks error while login: " + authResponse.Errors.JSON);
                 result.error = GameServiceErrorCode.UNKNOW;
                 if (authResponse.Errors.ContainsKey("DETAILS") && authResponse.Errors.GetString("DETAILS").Equals("UNRECOGNISED"))
-                    result.error = GameServiceErrorCode.EMPTY_USERNAME_OR_PASSWORD;
+                    result.error = GameServiceErrorCode.INVALID_USERNAME_OR_PASSWORD;
                 onFinish(result);
             }
         });
