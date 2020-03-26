@@ -6,9 +6,9 @@ using UnityEngine.Events;
 
 public partial class GSGameService
 {
-    protected override void DoGetHelperList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoGetHelperList(string playerId, string loginToken, UnityAction<PlayerListResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerListResult();
         var request = GetGSEventRequest("GetHelperList");
         request.Send((response) =>
         {
@@ -25,9 +25,9 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoGetFriendList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoGetFriendList(string playerId, string loginToken, UnityAction<PlayerListResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerListResult();
         var request = GetGSEventRequest("GetFriendList");
         request.Send((response) =>
         {
@@ -44,9 +44,9 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoGetFriendRequestList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoGetFriendRequestList(string playerId, string loginToken, UnityAction<PlayerListResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerListResult();
         var request = GetGSEventRequest("GetFriendRequestList");
         request.Send((response) =>
         {
@@ -63,9 +63,9 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoGetPendingRequestList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoGetPendingRequestList(string playerId, string loginToken, UnityAction<PlayerListResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerListResult();
         var request = GetGSEventRequest("GetPendingRequestList");
         request.Send((response) =>
         {
@@ -82,9 +82,9 @@ public partial class GSGameService
         });
     }
 
-    protected override void DoFindUser(string playerId, string loginToken, string displayName, UnityAction<FriendListResult> onFinish)
+    protected override void DoFindUser(string playerId, string loginToken, string displayName, UnityAction<PlayerListResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerListResult();
         var data = new GSRequestData();
         data.AddString("displayName", displayName);
         var request = GetGSEventRequest("FindUser", data);

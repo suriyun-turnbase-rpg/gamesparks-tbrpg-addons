@@ -53,9 +53,9 @@ public partial class GSGameService
         onFinish(result);
     }
 
-    protected override void DoGetClanMemberList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoGetClanMemberList(string playerId, string loginToken, UnityAction<PlayerListResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerListResult();
         result.error = GameServiceErrorCode.NOT_AVAILABLE;
         onFinish(result);
     }
@@ -81,9 +81,9 @@ public partial class GSGameService
         onFinish(result);
     }
 
-    protected override void DoGetClanJoinRequestList(string playerId, string loginToken, UnityAction<FriendListResult> onFinish)
+    protected override void DoGetClanJoinRequestList(string playerId, string loginToken, UnityAction<PlayerListResult> onFinish)
     {
-        var result = new FriendListResult();
+        var result = new PlayerListResult();
         result.error = GameServiceErrorCode.NOT_AVAILABLE;
         onFinish(result);
     }
