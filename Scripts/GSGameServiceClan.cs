@@ -101,4 +101,11 @@ public partial class GSGameService
         result.error = GameServiceErrorCode.NOT_AVAILABLE;
         onFinish(result);
     }
+
+    protected override void DoClanSetRole(string playerId, string loginToken, string targetPlayerId, byte clanRole, UnityAction<GameServiceResult> onFinish)
+    {
+        var result = new GameServiceResult();
+        result.error = GameServiceErrorCode.NOT_AVAILABLE;
+        onFinish(result);
+    }
 }
