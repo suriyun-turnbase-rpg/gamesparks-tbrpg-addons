@@ -7,7 +7,7 @@ using GameSparks.Api.Requests;
 
 public partial class GSGameService
 {
-    protected void RequestAccountDetails(PlayerResult result, UnityAction<PlayerResult> onFinish)
+    public void RequestAccountDetails(PlayerResult result, UnityAction<PlayerResult> onFinish)
     {
         var player = result.player;
         var request = new AccountDetailsRequest();
