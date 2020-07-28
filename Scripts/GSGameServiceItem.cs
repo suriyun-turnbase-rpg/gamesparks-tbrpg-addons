@@ -489,4 +489,11 @@ public partial class GSGameService
             onFinish(result);
         });
     }
+
+    protected override void DoCraftItem(string playerId, string loginToken, string itemCraftId, Dictionary<string, int> materials, UnityAction<ItemResult> onFinish)
+    {
+        var result = new ItemResult();
+        result.error = GameServiceErrorCode.NOT_AVAILABLE;
+        onFinish(result);
+    }
 }
